@@ -17,12 +17,15 @@ class CommandTests(SimpleTestCase):
     def test_wait_for_db_ready(self, patched_check):
         # Test waiting for database if database ready
         # when the mocked 'check' method is executed, do nothing other than return True
+        # Setup inpput
         patched_check.return_value = True
 
         # actually execute the code in wait_for_db.py, check if the 'Command' class exists
+        # execute code to be tested
         call_command('wait_for_db')
 
         # actually calls the mocked 'check' method with the default database
+        # assertion (check output)
         patched_check.assert_called_once_with(databases=['default'])
 
     # mocks the sleep function
